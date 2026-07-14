@@ -16,81 +16,74 @@ HTML = """
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS - Training</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NEXUS</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body {
             height: 100%;
-            background: #0a0a1a;
-            font-family: 'Segoe UI', Arial, sans-serif;
+            width: 100%;
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 15px;
+            padding: 20px;
         }
-        .container {
-            background: #1a1a2e;
-            padding: 50px 40px;
-            border-radius: 40px;
-            box-shadow: 0 0 100px #00ffcc44;
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
-            border: 3px solid #00ffcc;
-        }
-        .warning {
-            background: #ff4444;
-            color: white;
-            padding: 16px 14px;
-            border-radius: 20px;
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 30px;
-        }
-        h1 { color: #00ffcc; font-size: 56px; letter-spacing: 4px; margin: 10px 0 8px 0; }
-        .sub { color: #aaa; font-size: 22px; margin-bottom: 30px; }
+        .container { max-width: 400px; width: 100%; text-align: center; }
+        .icon { font-size: 60px; margin-bottom: 10px; }
+        h1 { font-size: 40px; font-weight: 700; color: #111; margin-bottom: 6px; }
+        .sub { font-size: 16px; color: #666; margin-bottom: 30px; }
         input {
             width: 100%;
-            padding: 18px 16px;
-            margin: 12px 0;
-            background: #0f0f2a;
-            border: 2px solid #2a2a4a;
-            border-radius: 20px;
-            color: white;
-            font-size: 22px;
+            padding: 16px 14px;
+            margin: 8px 0;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 18px;
+            color: #111;
         }
-        input:focus { outline: none; border-color: #00ffcc; box-shadow: 0 0 20px #00ffcc55; }
+        input:focus { outline: none; border-color: #007aff; background: #fff; }
         button {
             width: 100%;
-            padding: 18px;
-            background: #00ffcc;
-            color: #0a0a1a;
+            padding: 16px;
+            background: #007aff;
+            color: white;
             border: none;
-            border-radius: 20px;
-            font-size: 26px;
-            font-weight: bold;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 600;
             cursor: pointer;
-            margin-top: 18px;
+            margin-top: 12px;
         }
-        button:hover { background: #00dbb8; }
-        .footer { color: #555; margin-top: 30px; font-size: 18px; }
-        .footer span { color: #00ffcc; }
-        .nexus-icon { font-size: 72px; }
+        button:hover { background: #0066d9; }
+        .footer { margin-top: 25px; font-size: 14px; color: #999; }
+        .footer span { color: #111; font-weight: 500; }
+        .warning {
+            font-size: 14px;
+            color: #e74c3c;
+            font-weight: 500;
+            margin-bottom: 20px;
+            background: #fef0ef;
+            padding: 10px 14px;
+            border-radius: 10px;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="warning">🧪 TRAINING MODE - DO NOT ENTER REAL PASSWORDS!</div>
-        <div class="nexus-icon">🧸</div>
+        <div class="icon">🧸</div>
         <h1>NEXUS</h1>
         <p class="sub">Learn cybersecurity by doing</p>
+        <div class="warning">⚠️ Training mode — use fake data</div>
         <form action="/login" method="POST">
             <input type="text" name="username" placeholder="Your Name" required>
             <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">🚀 Login</button>
+            <button type="submit">Login</button>
         </form>
-        <p class="footer">Built by <span>Luiz Vad</span> 🧸 | <span>"Learn. Understand. Protect."</span></p>
+        <p class="footer">Built by <span>Luiz Vad</span> 🧸</p>
     </div>
 </body>
 </html>
@@ -118,55 +111,48 @@ def login():
         json.dump(logs, f, indent=4)
     
     return """
-    <html>
-    <head>
-        <title>NEXUS</title>
-        <style>
-            * { margin: 0; padding: 0; box-sizing: border-box; }
-            html, body {
-                height: 100%;
-                background: #0a0a1a;
-                font-family: 'Segoe UI', Arial, sans-serif;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 20px;
-            }
-            .container {
-                background: #1a1a2e;
-                padding: 50px 40px;
-                border-radius: 40px;
-                box-shadow: 0 0 100px #ff444444;
-                max-width: 600px;
-                width: 100%;
-                text-align: center;
-                border: 3px solid #ff4444;
-            }
-            h1 { color: #00ffcc; font-size: 56px; }
-            h2 { color: #ff4444; font-size: 32px; margin: 20px 0; }
-            p { color: #ccc; font-size: 22px; margin: 20px 0; }
-            a {
-                color: #00ffcc;
-                font-size: 24px;
-                text-decoration: none;
-                display: inline-block;
-                margin-top: 20px;
-                padding: 12px 30px;
-                border: 2px solid #00ffcc;
-                border-radius: 30px;
-            }
-            a:hover { background: #00ffcc22; }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>🧸 NEXUS</h1>
-            <h2>⚠️ THIS IS A TRAINING HONEYPOT! ⚠️</h2>
-            <p>Your data has been recorded for educational purposes.</p>
-            <a href="/">🔙 Go Back</a>
-        </div>
-    </body>
-    </html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            height: 100%;
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container { max-width: 400px; width: 100%; text-align: center; }
+        h1 { font-size: 40px; color: #111; margin-bottom: 6px; }
+        .icon { font-size: 60px; }
+        .msg { font-size: 18px; color: #333; margin: 20px 0; }
+        .sub { font-size: 16px; color: #666; }
+        a {
+            display: inline-block;
+            margin-top: 25px;
+            color: #007aff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">🧸</div>
+        <h1>NEXUS</h1>
+        <p class="msg">⚠️ This is a training honeypot.</p>
+        <p class="sub">Your data has been recorded.</p>
+        <a href="/">← Go back</a>
+    </div>
+</body>
+</html>
     """
 
 @app.route('/dashboard')
@@ -175,21 +161,42 @@ def dashboard():
         logs = json.load(f)
     
     html = """
+    <!DOCTYPE html>
     <html>
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>NEXUS Dashboard</title>
         <style>
-            body { background: #0a0a1a; color: #00ffcc; font-family: monospace; padding: 20px; }
-            table { width: 100%%; border-collapse: collapse; margin-top: 20px; }
-            th, td { border: 1px solid #00ffcc; padding: 10px; text-align: left; }
-            th { background: #1a1a2e; color: #fff; }
-            tr:hover { background: #1a1a2e; }
-            .back { color: #00ffcc; text-decoration: none; font-size: 18px; }
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body {
+                background: #ffffff;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                padding: 20px;
+                max-width: 700px;
+                margin: 0 auto;
+            }
+            h1 { font-size: 32px; color: #111; margin-bottom: 8px; }
+            .back { color: #007aff; text-decoration: none; font-size: 16px; }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+                font-size: 14px;
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 10px 8px;
+                text-align: left;
+            }
+            th { background: #f5f5f5; color: #111; font-weight: 600; }
+            tr:nth-child(even) { background: #fafafa; }
+            .total { color: #666; margin-top: 20px; font-size: 14px; }
         </style>
     </head>
     <body>
         <h1>📊 NEXUS Dashboard</h1>
-        <p><a href="/" class="back">← Go Back</a></p>
+        <p><a href="/" class="back">← Go back</a></p>
         <table>
             <tr><th>Time</th><th>Name</th><th>Password</th><th>IP</th></tr>
     """
@@ -199,7 +206,7 @@ def dashboard():
     
     html += f"""
         </table>
-        <p style="color: #555;">Total attempts: {len(logs)}</p>
+        <p class="total">Total attempts: {len(logs)}</p>
     </body>
     </html>
     """
