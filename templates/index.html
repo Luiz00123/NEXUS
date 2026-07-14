@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NEXUS - Training</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            height: 100%;
+            background: #0a0a1a;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+        .container {
+            background: #1a1a2e;
+            padding: 30px 25px;
+            border-radius: 30px;
+            box-shadow: 0 0 80px #00ffcc33;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            border: 2px solid #00ffcc;
+        }
+        .warning {
+            background: #ff4444;
+            color: white;
+            padding: 12px 10px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+        .nexus-icon { font-size: 60px; }
+        h1 { color: #00ffcc; font-size: 38px; letter-spacing: 2px; margin: 5px 0; }
+        .sub { color: #aaa; font-size: 16px; margin-bottom: 25px; }
+        input {
+            width: 100%;
+            padding: 16px 15px;
+            margin: 10px 0;
+            background: #0f0f2a;
+            border: 2px solid #2a2a4a;
+            border-radius: 16px;
+            color: white;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        input:focus { outline: none; border-color: #00ffcc; box-shadow: 0 0 15px #00ffcc44; }
+        button {
+            width: 100%;
+            padding: 16px;
+            background: #00ffcc;
+            color: #0a0a1a;
+            border: none;
+            border-radius: 16px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        button:hover { background: #00dbb8; }
+        .footer { color: #555; margin-top: 25px; font-size: 13px; }
+        .footer span { color: #00ffcc; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="warning">🧪 MODE YA MAFUNZO - USIWEKE NENOSIRI HALISI!</div>
+        <div class="nexus-icon">🧸</div>
+        <h1>NEXUS</h1>
+        <p class="sub">Jifunze usalama kwa vitendo</p>
+        <form action="/login" method="POST">
+            <input type="text" name="username" placeholder="Jina lako" required>
+            <input type="password" name="password" placeholder="Nenosiri" required>
+            <button type="submit">🚀 Ingia</button>
+        </form>
+        <p class="footer">Built by <span>Luiz Vad</span> 🧸 | "Jifunze. Elewa. Linda."</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+logs/
+*.zip
+ngrok*
+playit
+test.py
+__pycache__/
+*.pyc
