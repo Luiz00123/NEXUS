@@ -39,7 +39,7 @@ PLATFORMS = {
     }
 }
 
-# ---------- HOMEPAGE (Cards) ----------
+# ---------- HOMEPAGE (Cards with REAL HTML) ----------
 HTML_HOME = """
 <!DOCTYPE html>
 <html>
