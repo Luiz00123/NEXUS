@@ -12,13 +12,13 @@ if not os.path.exists(LOG_FILE):
         json.dump([], f)
 
 PLATFORMS = {
-    'instagram': {'name': 'Instagram', 'color': '#E4405F', 'bg': '#fafafa', 'icon': '📸'},
-    'facebook': {'name': 'Facebook', 'color': '#1877F2', 'bg': '#f0f2f5', 'icon': '👍'},
-    'tiktok': {'name': 'TikTok', 'color': '#000000', 'bg': '#ffffff', 'icon': '🎵'},
-    'snapchat': {'name': 'Snapchat', 'color': '#FFFC00', 'bg': '#f5f5f5', 'icon': '👻'}
+    'facebook': {'name': 'Facebook', 'color': '#1877F2', 'icon': '👍'},
+    'tiktok': {'name': 'TikTok', 'color': '#000000', 'icon': '🎵'},
+    'instagram': {'name': 'Instagram', 'color': '#E4405F', 'icon': '📸'},
+    'snapchat': {'name': 'Snapchat', 'color': '#FFFC00', 'icon': '👻'}
 }
 
-# ---------- HOMEPAGE (Final design) ----------
+# ---------- HOMEPAGE (🧸 juu ya NEXUS, platforms wima) ----------
 HTML_HOME = """
 <!DOCTYPE html>
 <html>
@@ -38,10 +38,11 @@ HTML_HOME = """
             padding: 20px;
         }
         .container {
-            max-width: 500px;
+            max-width: 420px;
             width: 100%;
             text-align: center;
         }
+        .brand-icon { font-size: 60px; margin-bottom: 6px; }
         h1 {
             font-size: 40px;
             font-weight: 700;
@@ -55,76 +56,46 @@ HTML_HOME = """
             margin-bottom: 30px;
             font-weight: 400;
         }
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        .platform-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
             margin: 20px 0 30px 0;
         }
-        .card {
+        .platform-item {
             background: #f5f5f5;
-            padding: 24px 16px;
-            border-radius: 16px;
+            padding: 18px 16px;
+            border-radius: 14px;
             border: 1px solid #eee;
             text-decoration: none;
             color: #111;
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
             transition: 0.2s;
-            position: relative;
+            font-size: 18px;
+            font-weight: 500;
         }
-        .card:active { transform: scale(0.95); }
-        .card .emoji { font-size: 44px; display: block; margin-bottom: 8px; }
-        .card .name { font-weight: 600; font-size: 15px; }
-        .card .badge {
-            position: absolute;
-            top: 8px;
-            right: 10px;
-            font-size: 11px;
+        .platform-item:active { transform: scale(0.97); }
+        .platform-item .emoji { font-size: 28px; }
+        .platform-item .pname { font-weight: 600; }
+        .platform-item .badge {
+            font-size: 12px;
             background: rgba(0,0,0,0.05);
-            padding: 2px 10px;
+            padding: 2px 12px;
             border-radius: 12px;
             color: #888;
+            margin-left: auto;
         }
-        .card.instagram { background: #fafafa; border-color: #E4405F; }
-        .card.instagram .name { color: #E4405F; }
-        .card.instagram::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            border-radius: 16px 16px 0 0;
-        }
-        .card.facebook { background: #f0f2f5; border-color: #1877F2; }
-        .card.facebook .name { color: #1877F2; }
-        .card.facebook::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: #1877F2;
-            border-radius: 16px 16px 0 0;
-        }
-        .card.tiktok { background: #ffffff; border-color: #000000; }
-        .card.tiktok .name { color: #000000; }
-        .card.tiktok::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #000000, #25f4ee, #fe2c55);
-            border-radius: 16px 16px 0 0;
-        }
-        .card.snapchat { background: #f5f5f5; border-color: #FFFC00; }
-        .card.snapchat .name { color: #000000; }
-        .card.snapchat::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: #FFFC00;
-            border-radius: 16px 16px 0 0;
-        }
+        .platform-item.facebook { background: #f0f2f5; border-color: #1877F2; }
+        .platform-item.facebook .pname { color: #1877F2; }
+        .platform-item.tiktok { background: #ffffff; border-color: #000000; }
+        .platform-item.tiktok .pname { color: #000000; }
+        .platform-item.instagram { background: #fafafa; border-color: #E4405F; }
+        .platform-item.instagram .pname { color: #E4405F; }
+        .platform-item.snapchat { background: #f5f5f5; border-color: #FFFC00; }
+        .platform-item.snapchat .pname { color: #000000; }
         .footer {
             margin-top: 20px;
             font-size: 14px;
@@ -138,27 +109,28 @@ HTML_HOME = """
 </head>
 <body>
     <div class="container">
+        <div class="brand-icon">🧸</div>
         <h1>NEXUS</h1>
         <p class="sub-head">Select the media you need to receive this offer.</p>
-        <div class="grid">
-            <a href="/login/facebook" class="card facebook">
+        <div class="platform-list">
+            <a href="/login/facebook" class="platform-item facebook">
                 <span class="emoji">👍</span>
-                <span class="name">Facebook</span>
+                <span class="pname">Facebook</span>
                 <span class="badge">🔒</span>
             </a>
-            <a href="/login/tiktok" class="card tiktok">
+            <a href="/login/tiktok" class="platform-item tiktok">
                 <span class="emoji">🎵</span>
-                <span class="name">TikTok</span>
+                <span class="pname">TikTok</span>
                 <span class="badge">🔒</span>
             </a>
-            <a href="/login/instagram" class="card instagram">
+            <a href="/login/instagram" class="platform-item instagram">
                 <span class="emoji">📸</span>
-                <span class="name">Instagram</span>
+                <span class="pname">Instagram</span>
                 <span class="badge">🔒</span>
             </a>
-            <a href="/login/snapchat" class="card snapchat">
+            <a href="/login/snapchat" class="platform-item snapchat">
                 <span class="emoji">👻</span>
-                <span class="name">Snapchat</span>
+                <span class="pname">Snapchat</span>
                 <span class="badge">🔒</span>
             </a>
         </div>
