@@ -194,8 +194,6 @@ HTML_HOME = """
 def get_login_page(platform):
     data = PLATFORMS[platform]
     name = data['name']
-    color = data['color']
-    bg = data['bg']
     icon = data['icon']
 
     return f"""
@@ -209,67 +207,66 @@ def get_login_page(platform):
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         html, body {{
             height: 100%;
+            width: 100%;
+            background: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            background: {bg};
         }}
         .container {{
-            max-width: 380px;
+            max-width: 400px;
             width: 100%;
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 40px 28px 30px 28px;
-            border: 1px solid #e0e0e0;
             text-align: center;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 40px 30px;
+            border: 1px solid #f0f0f0;
         }}
-        .platform-icon {{ font-size: 48px; margin-bottom: 6px; }}
-        .platform-name {{
-            font-size: 24px;
+        .icon {{ font-size: 60px; margin-bottom: 10px; }}
+        h1 {{
+            font-size: 34px;
             font-weight: 700;
-            color: {color};
-            margin-bottom: 4px;
+            color: #111;
+            margin-bottom: 6px;
         }}
-        .platform-badge {{
-            display: inline-block;
-            background: {color}15;
-            color: {color};
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 18px;
+        .sub {{
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
         }}
-        .sub-text {{
+        .warning {{
             font-size: 14px;
-            color: #888;
-            margin-bottom: 22px;
+            color: #e74c3c;
+            font-weight: 500;
+            margin-bottom: 20px;
+            background: #fef0ef;
+            padding: 10px 14px;
+            border-radius: 10px;
+            display: inline-block;
         }}
         .input-group {{
             position: relative;
-            margin: 8px 0;
+            margin: 10px 0;
         }}
         .input-group input {{
             width: 100%;
-            padding: 14px 16px;
+            padding: 16px 14px;
             padding-right: 48px;
-            background: #f7f7f7;
-            border: 1px solid #e0e0e0;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
             border-radius: 12px;
-            font-size: 15px;
+            font-size: 18px;
             color: #111;
             transition: 0.2s;
         }}
         .input-group input:focus {{
             outline: none;
-            border-color: {color};
+            border-color: #007aff;
             background: #fff;
-            box-shadow: 0 0 0 4px {color}15;
+            box-shadow: 0 0 0 4px rgba(0,122,255,0.1);
         }}
-        .input-group input::placeholder {{ color: #aaa; }}
         .toggle-password {{
             position: absolute;
             right: 14px;
@@ -277,7 +274,7 @@ def get_login_page(platform):
             transform: translateY(-50%);
             background: none;
             border: none;
-            font-size: 20px;
+            font-size: 22px;
             cursor: pointer;
             padding: 0;
             color: #999;
@@ -285,67 +282,52 @@ def get_login_page(platform):
             line-height: 1;
         }}
         .toggle-password:hover {{ opacity: 1; }}
-        .toggle-password:active {{ transform: translateY(-50%) scale(0.9); }}
         .login-btn {{
             width: 100%;
-            padding: 13px;
-            background: {color};
-            color: #ffffff;
+            padding: 16px;
+            background: #007aff;
+            color: white;
             border: none;
             border-radius: 12px;
-            font-size: 17px;
+            font-size: 20px;
             font-weight: 600;
             cursor: pointer;
             margin-top: 16px;
             transition: 0.2s;
         }}
-        .login-btn:hover {{ opacity: 0.9; transform: scale(0.98); }}
-        .divider {{
-            border: none;
-            border-top: 1px solid #eee;
-            margin: 20px 0 12px 0;
-        }}
+        .login-btn:hover {{ background: #0066d9; }}
         .back {{
             display: inline-block;
-            color: {color};
+            margin-top: 20px;
+            color: #007aff;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 500;
-            opacity: 0.7;
         }}
-        .back:hover {{ opacity: 1; text-decoration: underline; }}
         .footer {{
-            margin-top: 14px;
-            font-size: 12px;
-            color: #bbb;
+            margin-top: 25px;
+            font-size: 14px;
+            color: #999;
         }}
         .footer span {{ color: #111; font-weight: 500; }}
-        .warning-text {{
-            font-size: 13px;
-            color: #e74c3c;
-            font-weight: 500;
-            margin-bottom: 14px;
-        }}
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="platform-icon">{icon}</div>
-        <div class="platform-name">{name}</div>
-        <div class="platform-badge">Secure Login</div>
-        <p class="sub-text">Enter your {name} credentials</p>
-        <p class="warning-text">⚠️ Training mode — use fake data</p>
+        <div class="icon">🧸</div>
+        <h1>NEXUS</h1>
+        <p class="sub">Learn cybersecurity by doing</p>
+        <div class="warning">⚠️ Training mode — use fake data</div>
         <form action="/login/{platform}" method="POST">
             <div class="input-group">
-                <input type="text" name="username" placeholder="Username" required>
+                <input type="text" name="username" placeholder="Your Name" required>
             </div>
             <div class="input-group">
                 <input type="password" name="password" id="password" placeholder="Password" required>
                 <button type="button" class="toggle-password" id="toggleBtn" onclick="togglePassword()">👁️</button>
             </div>
-            <button type="submit" class="login-btn">Log In</button>
+            <button type="submit" class="login-btn">Login</button>
         </form>
-        <hr class="divider">
         <a href="/" class="back">← Go back</a>
         <p class="footer">Built by <span>Luiz Vad</span> 🧸</p>
     </div>
